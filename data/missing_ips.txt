@@ -1,0 +1,9 @@
+185.207.107.102:25565
+57.159.25.191:25565
+BungeonRealms.com:25566
+aternos.me:22653
+bucketry.net:19132
+craftorium.fun:25565
+csblackdevil.com:19132
+mcjungle.xyz:25565
+play.mysticnetwork.uk:25568

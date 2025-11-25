@@ -1,0 +1,351 @@
+{
+  "total_matches": 49,
+  "high_confidence": 49,
+  "medium_confidence": 0,
+  "low_confidence": 0,
+  "matches": [
+    {
+      "master": "jogar.blocktopiamp.com",
+      "alias": "jugar.blocktopiamp.com",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 124.198.128.194"
+    },
+    {
+      "master": "mc.piratemc.com",
+      "alias": "play.avalonearth.xyz",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 144.76.99.105"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "ANIMIGHTS.myserver.gs",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "crepssmp.serv.nu",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "flowercraft.serv.nu",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "fluffymc.serv.nu",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "fufmfe.g-s.nu",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "landcomplex.serv.gs",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "ludsmp.mcserv.me",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "mrcoldhollowserver.mcnetwork.me",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "sharpmc.serv.gs",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "starcraft.serv.nu",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "fatewarriors.mcnetwork.me",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "feffarfcraft.mygs.co",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "kitpvp.serv.gs",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "nebulanetwork.serv.gs",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "realsb.mcnetwork.me",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "fullbodythotties.mygs.co",
+      "alias": "skyblock.mcnetwork.me",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 148.222.43.234"
+    },
+    {
+      "master": "exiledanarchy.net",
+      "alias": "mc.peacefulvanilla.club",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 167.148.125.65"
+    },
+    {
+      "master": "server.chunklock.com",
+      "alias": "play.fishonmc.net",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.166.40"
+    },
+    {
+      "master": "server.chunklock.com",
+      "alias": "mc.playmatix.net",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.166.40"
+    },
+    {
+      "master": "timelordsinc.net",
+      "alias": "play.experimentb.net",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.179.161"
+    },
+    {
+      "master": "timelordsinc.net",
+      "alias": "play.platonicmc.net",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.179.161"
+    },
+    {
+      "master": "cookiescafe.minehut.gg",
+      "alias": "2025GGMC.minehut.gg",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.184.122"
+    },
+    {
+      "master": "cookiescafe.minehut.gg",
+      "alias": "3vboPKR.minehut.gg",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.184.122"
+    },
+    {
+      "master": "cookiescafe.minehut.gg",
+      "alias": "DuskfallMC.minehut.gg",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.184.122"
+    },
+    {
+      "master": "cookiescafe.minehut.gg",
+      "alias": "ElytraBoxed.minehut.gg",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.184.122"
+    },
+    {
+      "master": "cookiescafe.minehut.gg",
+      "alias": "RaidAI.minehut.gg",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.184.122"
+    },
+    {
+      "master": "cookiescafe.minehut.gg",
+      "alias": "NeulandSMP.minehut.gg",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.184.122"
+    },
+    {
+      "master": "cookiescafe.minehut.gg",
+      "alias": "adm1nabuse.minehut.gg",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.184.122"
+    },
+    {
+      "master": "cookiescafe.minehut.gg",
+      "alias": "bearwars.minehut.gg",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.184.122"
+    },
+    {
+      "master": "cookiescafe.minehut.gg",
+      "alias": "crusherboxx.minehut.gg",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.184.122"
+    },
+    {
+      "master": "cookiescafe.minehut.gg",
+      "alias": "evochromesmp.minehut.gg",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.184.122"
+    },
+    {
+      "master": "cookiescafe.minehut.gg",
+      "alias": "hasanbasmp.minehut.gg",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.184.122"
+    },
+    {
+      "master": "cookiescafe.minehut.gg",
+      "alias": "ChainGen.minehut.gg",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 172.65.184.122"
+    },
+    {
+      "master": "clashsmp.net",
+      "alias": "kingsmp.net",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 185.206.148.205"
+    },
+    {
+      "master": "mcsl.mythcraft.com",
+      "alias": "mcmp.mythcraft.com",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 193.228.124.6"
+    },
+    {
+      "master": "join.playblocks.org",
+      "alias": "play.minealong.com",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 23.163.152.19"
+    },
+    {
+      "master": "avn.gg",
+      "alias": "a.jaystechvault.com",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 50.114.4.167"
+    },
+    {
+      "master": "java.adderall.ir",
+      "alias": "play.creativefun.net",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 50.114.4.33"
+    },
+    {
+      "master": "mc.villagercraft.nl",
+      "alias": "gengar.enchantmc.com",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 50.114.4.35"
+    },
+    {
+      "master": "mc.cwresports.lk",
+      "alias": "play.rocketrealms.net",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 50.114.4.62"
+    },
+    {
+      "master": "6b6t.ca",
+      "alias": "mangosmp.org",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 50.114.4.68"
+    },
+    {
+      "master": "nobnot.org",
+      "alias": "play.aureusmc.org",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 50.114.4.70"
+    },
+    {
+      "master": "smitesmp.lol",
+      "alias": "mc.meltarion.net",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 51.195.127.89"
+    },
+    {
+      "master": "mc-gtm.net",
+      "alias": "mcsl.gtm.network",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 51.222.10.224"
+    },
+    {
+      "master": "mcsl.manacube.com",
+      "alias": "server.mineville.net",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 51.79.44.42"
+    },
+    {
+      "master": "mcsl.manacube.com",
+      "alias": "smp.aternos.net",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 51.79.44.42"
+    },
+    {
+      "master": "Nenox.net",
+      "alias": "mc.nenox.net",
+      "confidence": 1.0,
+      "method": "dns_resolution",
+      "reason": "Both resolve to 89.144.15.28"
+    }
+  ]
+}

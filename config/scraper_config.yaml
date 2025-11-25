@@ -1,0 +1,51 @@
+version: "1.0"
+
+logging:
+  level: INFO
+  file_rotation_mb: 10
+  backup_count: 5
+  json_format: true
+  sanitize: true
+
+resources:
+  max_workers_global: 500
+  auto_tune: true
+  timeout_default: 5
+
+scrapers:
+  default:
+    retries: 3
+    delay_min: 0.5
+    delay_max: 2.0
+    user_agents:
+      - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+      - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+      - "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0"
+      - "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+
+proxies:
+  enabled: false
+  mode: "round_robin" # or "weighted"
+  sources:
+    - "http://user:pass@proxy1.example.com:8080"
+    - "http://user:pass@proxy2.example.com:8080"
+  file_path: "config/proxies.txt" # Optional external file
+  cooldown_seconds: 300
+  max_failures: 3
+
+rate_limiting:
+  enabled: true
+  global_rpm: 300  # Requests per minute globally
+  per_domain_rpm: 60
+  adaptive: true
+  error_threshold: 0.3
+  slowdown_factor: 0.5
+
+paths:
+  data_dir: "data"
+  logs_dir: "logs"
+  unified_db: "data/unified_servers.json"
+
+normalization:
+  remove_www: true  # Auto-remove www. prefix (www.example.com -> example.com)
+  punycode_enabled: true  # Handle internationalized domain names (IDN)

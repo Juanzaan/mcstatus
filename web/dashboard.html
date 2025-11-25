@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minecraft Server Dashboard</title>
+    <link rel="stylesheet" href="/static/dashboard.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ Minecraft Server Dashboard</h1>
+            <p class="subtitle">Real-time server status and statistics</p>
+        </header>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="stat-total">0</div>
+                <div class="stat-label">Total Servers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-premium">0</div>
+                <div class="stat-label">Premium</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-non-premium">0</div>
+                <div class="stat-label">Non-Premium</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-players">0</div>
+                <div class="stat-label">Total Players</div>
+            </div>
+        </div>
+        <div class="controls">
+            <div class="controls-row">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="premium">👑 Premium</button>
+                    <button class="filter-btn" data-filter="non_premium">🔓 Non-Premium</button>
+                    <button class="filter-btn" data-filter="favorites">⭐ Favorites</button>
+                </div>
+                <input type="text" class="search-box" id="search-input" placeholder="🔍 Search (Press 'F' to focus)" />
+                <select class="sort-select" id="sort-select">
+                    <option value="players">Players</option>
+                    <option value="name">Name</option>
+                    <option value="status">Status</option>
+                </select>
+                <button class="export-btn" onclick="exportServers('json')" title="Export JSON">💾 JSON</button>
+                <button class="export-btn" onclick="exportServers('csv')" title="Export CSV">📊 CSV</button>
+            </div>
+        </div>
+        <div class="servers-grid" id="servers-grid">
+            <div class="loading">
+                <div class="spinner"></div>Loading servers...
+            </div>
+        </div>
+    </div>
+    <div id="modal-placeholder"></div>
+    <button id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'});">↑</button>
+    <script src="/static/dashboard.js"></script>
+</body>
+
+</html>

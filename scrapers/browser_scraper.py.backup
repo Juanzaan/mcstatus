@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minecraft Server Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2b 0%, #2d2d44 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #a0a0b0;
+            font-size: 1.1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #a0a0b0;
+            font-size: 0.9rem;
+        }
+
+        .controls {
+            margin-bottom: 2rem;
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #e0e0e0;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: transparent;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.6rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+        }
+
+        .search-box::placeholder {
+            color: #606070;
+        }
+
+        .sort-select,
+        .export-btn {
+            padding: 0.6rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #e0e0e0;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .sort-select:hover,
+        .export-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .servers-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .server-row {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .server-row:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .server-main {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        .server-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .server-info {
+            flex: 1;
+        }
+
+        .server-name {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .favorite-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #a0a0a0;
+        }
+
+        .favorite-btn.active {
+            color: #ffdd57;
+        }
+
+        .server-desc {
+            margin: 0.25rem 0 0;
+            font-size: 0.9rem;
+            color: #c0c0d0;
+        }
+
+        .server-stats {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .player-count-section {
+            text-align: right;
+        }
+
+        .player-count {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .player-label {
+            font-size: 0.8rem;
+            color: #a0a0b0;
+        }
+
+        .badge {
+            padding: 0.3rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .badge-premium {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: #fff;
+        }
+
+        .badge-cracked {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #fff;
+        }
+
+        .badge-offline {
+            background: rgba(255, 255, 255, 0.1);
+            color: #808090;
+        }
+
+        .server-ip-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .ip-text {
+            color: #c0c0d0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .copy-btn {
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            color: #667eea;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: scale(1.1);
+        }
+
+        .copy-btn.copied {
+            background: rgba(46, 213, 115, 0.2);
+            border-color: rgba(46, 213, 115, 0.3);
+            color: #2ed573;
+        }
+
+        .details-btn {
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .details-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .server-expanded {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .server-row.expanded .server-expanded {
+            max-height: 200px;
+        }
+
+        .expand-content {
+            padding: 0 1.5rem 1rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .alternate-ips {
+            margin-top: 1rem;
+        }
+
+        .alternate-ips-label {
+            color: #a0a0b0;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .alternate-ips-list {
+            color: #c0c0d0;
+            font-size: 0.85rem;
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.75rem;
+            border-radius: 6px;
+            line-height: 1.6;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #a0a0b0;
+        }
+
+        #back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .controls-row {
+                flex-direction: column;
+            }
+
+            .filter-buttons {
+                width: 100%;
+            }
+
+            .filter-btn {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ Minecraft Server Dashboard</h1>
+            <p class="subtitle">Real-time server status and statistics</p>
+        </header>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="stat-total">0</div>
+                <div class="stat-label">Total Servers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-premium">0</div>
+                <div class="stat-label">Premium</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-non-premium">0</div>
+                <div class="stat-label">Non-Premium</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-players">0</div>
+                <div class="stat-label">Total Players</div>
+            </div>
+        </div>
+        <div class="controls">
+            <div class="controls-row">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="premium">👑 Premium</button>
+                    <button class="filter-btn" data-filter="non_premium">🔓 Non-Premium</button>
+                    <button class="filter-btn" data-filter="offline">⚪ Offline</button>
+                    <button class="filter-btn" data-filter="favorites">⭐ Favorites</button>
+                </div>
+                <input type="text" class="search-box" id="search-input" placeholder="🔍 Search (Press 'F' to focus)" />
+                <select class="sort-select" id="sort-select">
+                    <option value="players">Players</option>
+                    <option value="name">Name</option>
+                    <option value="status">Status</option>
+                </select>
+                <button class="export-btn" onclick="exportServers('json')" title="Export JSON">💾 JSON</button>
+                <button class="export-btn" onclick="exportServers('csv')" title="Export CSV">📊 CSV</button>
+            </div>
+        </div>
+        <div class="servers-grid" id="servers-grid">
+            <div class="loading">
+                <div class="spinner"></div>Loading servers...
+            </div>
+        </div>
+    </div>
+    <div id="modal-placeholder"></div>
+    <button id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'});">↑</button>
+    <script src="{{ url_for('static', filename='dashboard.js') }}?v={{ range(1, 10000) | random }}"></script>
+</body>
+
+</html>

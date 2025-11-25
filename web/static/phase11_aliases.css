@@ -1,0 +1,114 @@
+/* ============= PHASE 11: ALIAS RESOLUTION STYLES ============= */
+
+/* Toast Notification */
+.alias-toast {
+    position: fixed;
+    top: 90px;
+    right: 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 18px 22px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    z-index: 10000;
+    max-width: 380px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    animation: slideInRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.alias-toast .toast-icon {
+    font-size: 26px;
+    flex-shrink: 0;
+}
+
+.alias-toast .toast-content {
+    flex: 1;
+    line-height: 1.5;
+}
+
+.alias-toast strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.alias-toast small {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 13px;
+}
+
+.alias-toast.fade-out {
+    animation: fadeOutUp 0.3s ease forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(420px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOutUp {
+    to {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+}
+
+/* Alias Section in Server Card */
+.server-aliases {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.aliases-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.aliases-list {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 13px;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.server-aliases .matched-alias {
+    color: #ffd700;
+    font-weight: 600;
+    background: rgba(255, 215, 0, 0.12);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.server-aliases .more-aliases {
+    color: rgba(255, 255, 255, 0.45);
+    font-style: italic;
+    font-size: 12px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .alias-toast {
+        top: 70px;
+        right: 12px;
+        left: 12px;
+        max-width: none;
+        padding: 14px 16px;
+    }
+
+    .alias-toast .toast-icon {
+        font-size: 22px;
+    }
+}

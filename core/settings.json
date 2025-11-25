@@ -1,0 +1,51 @@
+{
+    "scan_schedule": "0 * * * *",
+    "api": {
+        "host": "0.0.0.0",
+        "port": 5000,
+        "cors_enabled": true
+    },
+    "rate_limits": {
+        "geolocation_delay": 0.1,
+        "max_retries": 3,
+        "retry_backoff": 2
+    },
+    "notifications": {
+        "enabled": true,
+        "discord": {
+            "enabled": false,
+            "webhook_url": ""
+        },
+        "email": {
+            "enabled": false,
+            "smtp_server": "smtp.gmail.com",
+            "smtp_port": 587,
+            "from_email": "",
+            "to_email": "",
+            "password": ""
+        }
+    },
+    "alerts": {
+        "server_offline": {
+            "enabled": true,
+            "min_previous_online": 10
+        },
+        "player_spike": {
+            "enabled": true,
+            "threshold_percent": 50,
+            "min_players": 100
+        },
+        "new_premium_server": {
+            "enabled": true,
+            "min_players": 50
+        }
+    },
+    "scanner": {
+        "max_workers": 50,
+        "timeout": 3,
+        "show_progress": true
+    },
+    "cache": {
+        "geolocation_ttl_days": 30
+    }
+}

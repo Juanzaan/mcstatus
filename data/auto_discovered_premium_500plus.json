@@ -1,0 +1,44 @@
+[
+  {
+    "ip": "mc.hypixel.net:25565",
+    "country": "Canada",
+    "isp": "Cloudflare, Inc.",
+    "auth_mode": "PREMIUM",
+    "version": "Requires MC 1.8 / 1.21",
+    "online": 18009,
+    "max": 200000,
+    "sample_size": 0,
+    "premium": 0,
+    "cracked": 0,
+    "new_players": 0,
+    "icon": null
+  },
+  {
+    "ip": "mp.mc-complex.com:25565",
+    "country": "Canada",
+    "isp": "OVH SAS",
+    "auth_mode": "PREMIUM",
+    "version": "Velocity 1.7.2-1.21.10",
+    "online": 6242,
+    "max": 6292,
+    "sample_size": 0,
+    "premium": 0,
+    "cracked": 0,
+    "new_players": 0,
+    "icon": null
+  },
+  {
+    "ip": "play.mccentral.org:25565",
+    "country": "Canada",
+    "isp": "TCPShield",
+    "auth_mode": "PREMIUM",
+    "version": "Velocity 1.7.2-1.21.10",
+    "online": 1047,
+    "max": 10000,
+    "sample_size": 0,
+    "premium": 0,
+    "cracked": 0,
+    "new_players": 0,
+    "icon": null
+  }
+]

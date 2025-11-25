@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+Dockerfile
+docker-compose.yml
+docker/
+*.sqlite3
+*.log
+*.pkl
+*.png
+# Data files that are generated at runtime – keep them out of VCS
+data/*.db*

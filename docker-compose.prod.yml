@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: production
+    image: mcstatus:prod
+    container_name: mcstatus-prod
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=False
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - WORKERS=4
+      - SCHEDULER_ENABLED=True
+      - DATA_DIR=/app/data
+      - CORS_ORIGINS=https://yourdomain.com
+    volumes:
+      - ./data:/app/data:ro
+    healthcheck:
+      test: curl -f http://localhost:8000/api/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    networks:
+      - mcstatus-network
+    labels:
+      - com.mcstatus.environment=production
+      - com.mcstatus.version=2.0
+
+networks:
+  mcstatus-network:
+    driver: bridge
