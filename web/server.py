@@ -37,7 +37,8 @@ def load_unified_servers():
                 "total_premium": 0,
                 "total_non_premium": 0,
                 "total_offline": 0,
-                "total_players": 0
+                "total_players": 0,
+                "error": str(e)
             }
         }
 
