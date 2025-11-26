@@ -47,11 +47,11 @@ def dashboard():
     """Render dashboard page"""
     return render_template('dashboard.html')
 
-@app.route('/api/servers/all')
+@app.route('/api/servers')
 def get_all_servers():
     """Get all servers with optional filtering"""
     data = load_unified_servers()
-    filter_type = request.args.get('filter', 'all')
+    filter_type = request.args.get('category', 'all')  # Changed 'filter' to 'category' to match frontend
     search = request.args.get('search', '').lower()
     sort_by = request.args.get('sort', 'players')  # players, name, status
     
@@ -79,16 +79,34 @@ def get_all_servers():
     elif sort_by == 'status':
         servers.sort(key=lambda x: x.get('status', 'offline'))
     
+    # Pagination
+    try:
+        page = int(request.args.get('page', 1))
+        limit = int(request.args.get('limit', 50))
+    except ValueError:
+        page = 1
+        limit = 50
+        
+    start = (page - 1) * limit
+    end = start + limit
+    paginated_servers = servers[start:end]
+    
     return jsonify({
-        'servers': servers,
-        'count': len(servers)
+        'success': True,
+        'servers': paginated_servers,
+        'total': len(servers),
+        'page': page,
+        'limit': limit
     })
 
-@app.route('/api/servers/stats')
+@app.route('/api/stats')
 def get_stats():
     """Get server statistics"""
     data = load_unified_servers()
-    return jsonify(data['stats'])
+    return jsonify({
+        'success': True,
+        'stats': data['stats']
+    })
 
 @app.route('/api/servers/refresh')
 def refresh_servers():
