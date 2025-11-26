@@ -249,10 +249,11 @@ async function loadStats() {
         const data = await response.json();
 
         if (data.success) {
-            animateNumber('stat-total', data.stats.total_servers);
+            const totalServers = (data.stats.total_premium || 0) + (data.stats.total_non_premium || 0) + (data.stats.total_offline || 0);
+            animateNumber('stat-total', totalServers);
             animateNumber('stat-players', data.stats.total_players);
-            animateNumber('stat-premium', data.stats.premium_count);
-            animateNumber('stat-non-premium', data.stats.cracked_count);
+            animateNumber('stat-premium', data.stats.total_premium);
+            animateNumber('stat-non-premium', data.stats.total_non_premium);
 
             // Add last refresh timestamp
             updateLastRefresh();
