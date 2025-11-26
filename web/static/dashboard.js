@@ -394,7 +394,7 @@ function renderServers(servers, reset = false) {
 
 function getCategory(server) {
     if (server.status === 'offline') return 'Offline';
-    if (server.premium) return 'Premium';
+    if (server.auth_mode === 'PREMIUM') return 'Premium';
     return 'Non-Premium';
 }
 
