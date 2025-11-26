@@ -128,37 +128,7 @@ def serve_static(filename):
     """Serve static files"""
     return send_from_directory(app.static_folder, filename)
 
-@app.route('/api/debug')
-def debug_info():
-    """Debug endpoint to check file system"""
-    try:
-        cwd = os.getcwd()
-        data_dir_exists = DATA_DIR.exists()
-        files_in_data = []
-        if data_dir_exists:
-            files_in_data = [f.name for f in DATA_DIR.iterdir()]
-        
-        unified_path = DATA_DIR / 'unified_servers.json'
-        unified_exists = unified_path.exists()
-        unified_stat = {}
-        if unified_exists:
-            stat = unified_path.stat()
-            unified_stat = {
-                'size': stat.st_size,
-                'mode': stat.st_mode
-            }
-            
-        return jsonify({
-            'cwd': cwd,
-            'data_dir': str(DATA_DIR),
-            'data_dir_exists': data_dir_exists,
-            'files_in_data': files_in_data,
-            'unified_path': str(unified_path),
-            'unified_exists': unified_exists,
-            'unified_stat': unified_stat
-        })
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+
 
 if __name__ == '__main__':
     print("🚀 Starting Minecraft Server Status Dashboard...")
