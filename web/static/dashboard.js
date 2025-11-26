@@ -249,7 +249,7 @@ async function loadStats() {
         const data = await response.json();
 
         if (data.success) {
-            const totalServers = (data.stats.total_premium || 0) + (data.stats.total_non_premium || 0) + (data.stats.total_offline || 0);
+            const totalServers = (data.stats.total_premium || 0) + (data.stats.total_non_premium || 0);
             animateNumber('stat-total', totalServers);
             animateNumber('stat-players', data.stats.total_players);
             animateNumber('stat-premium', data.stats.total_premium);
