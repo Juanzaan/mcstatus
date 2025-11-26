@@ -9,5 +9,50 @@ docker/
 *.log
 *.pkl
 *.png
+
 # Data files that are generated at runtime – keep them out of VCS
 data/*.db*
+
+# Scraping scripts (development only)
+scrape_*.py
+scrapers/
+
+# Testing and debugging scripts
+test_*.py
+debug_*.py
+check_*.py
+diagnose_*.py
+investigate_*.py
+inspect_*.py
+analyze_*.py
+
+# Development/utility scripts
+integrate_new_servers.py
+consolidate_*.py
+mass_consolidate_*.py
+complete_*.py
+create_scan_list.py
+scan_popular.py
+find_*.py
+generate_*.py
+verify_*.py
+
+# Debug HTML files
+debug_*.html
+
+# Reports and analysis files
+audit_*.txt
+dedup_report.json
+*_issue.md
+*_report.txt
+*_report.json
+REORGANIZATION_COMPLETE.md
+
+# Test data files
+test*.json
+
+# Coverage reports
+.coverage
+
+# Environment and Docker files
+.dockerignore
