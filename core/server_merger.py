@@ -14,10 +14,12 @@ class ServerMerger:
             
         self.unified_data = {
             "premium": [],
+            "semi_premium": [],
             "non_premium": [],
             "offline": [],
             "stats": {
                 "total_premium": 0,
+                "total_semi_premium": 0,
                 "total_non_premium": 0,
                 "total_offline": 0,
                 "total_players": 0
@@ -50,6 +52,17 @@ class ServerMerger:
         # Offline check
         if online == 0 or server.get('status') == 'offline':
             return 'offline'
+            
+        # Semi-Premium: Specific servers or explicit auth_mode
+        # TODO: Add more robust detection for semi-premium
+        name = server.get('name', '').lower()
+        ip = server.get('ip', '').lower()
+        if 'universocraft' in name or 'universocraft' in ip:
+            server['auth_mode'] = 'SEMI_PREMIUM'
+            return 'semi_premium'
+            
+        if auth_mode == 'SEMI_PREMIUM':
+            return 'semi_premium'
         
         # Premium: any server with PREMIUM authentication
         if auth_mode == 'PREMIUM':
@@ -261,15 +274,17 @@ class ServerMerger:
             self.unified_data[category].append(server)
             
             self.unified_data['stats'][f'total_{category}'] += 1
-            if category in ['premium', 'non_premium']:
+            if category in ['premium', 'semi_premium', 'non_premium']:
                 self.unified_data['stats']['total_players'] += server['online']
         
         # Sort
         self.unified_data['premium'].sort(key=lambda x: x['online'], reverse=True)
+        self.unified_data['semi_premium'].sort(key=lambda x: x['online'], reverse=True)
         self.unified_data['non_premium'].sort(key=lambda x: x['online'], reverse=True)
         
         print(f"\n📊 Statistics:")
         print(f"  Premium: {self.unified_data['stats']['total_premium']}")
+        print(f"  Semi-Premium: {self.unified_data['stats']['total_semi_premium']}")
         print(f"  Non-Premium: {self.unified_data['stats']['total_non_premium']}")
         print(f"  Offline: {self.unified_data['stats']['total_offline']}")
         print(f"  Total Players: {self.unified_data['stats']['total_players']:,}")

@@ -31,10 +31,12 @@ def load_unified_servers():
         print(f"Error loading unified servers: {e}")
         return {
             "premium": [],
+            "semi_premium": [],
             "non_premium": [],
             "offline": [],
             "stats": {
                 "total_premium": 0,
+                "total_semi_premium": 0,
                 "total_non_premium": 0,
                 "total_offline": 0,
                 "total_players": 0,
@@ -58,12 +60,14 @@ def get_all_servers():
     # Select category
     if filter_type == 'premium':
         servers = data['premium']
+    elif filter_type == 'semi_premium':
+        servers = data['semi_premium']
     elif filter_type == 'non_premium':
         servers = data['non_premium']
     elif filter_type == 'offline':
         servers = data['offline']
     else:  # 'all'
-        servers = data['premium'] + data['non_premium'] + data['offline']
+        servers = data['premium'] + data['semi_premium'] + data['non_premium'] + data['offline']
     
     # Apply search filter
     if search:

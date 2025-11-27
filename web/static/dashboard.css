@@ -236,6 +236,11 @@ h1 {
     color: #fff;
 }
 
+.badge-semi-premium {
+    background: linear-gradient(135deg, #9d50bb, #6e48aa);
+    color: #fff;
+}
+
 .badge-cracked {
     background: linear-gradient(135deg, #4facfe, #00f2fe);
     color: #fff;

@@ -249,10 +249,11 @@ async function loadStats() {
         const data = await response.json();
 
         if (data.success) {
-            const totalServers = (data.stats.total_premium || 0) + (data.stats.total_non_premium || 0);
+            const totalServers = (data.stats.total_premium || 0) + (data.stats.total_semi_premium || 0) + (data.stats.total_non_premium || 0);
             animateNumber('stat-total', totalServers);
             animateNumber('stat-players', data.stats.total_players);
             animateNumber('stat-premium', data.stats.total_premium);
+            animateNumber('stat-semi-premium', data.stats.total_semi_premium);
             animateNumber('stat-non-premium', data.stats.total_non_premium);
 
             // Add last refresh timestamp
@@ -395,6 +396,7 @@ function renderServers(servers, reset = false) {
 function getCategory(server) {
     if (server.status === 'offline') return 'Offline';
     if (server.auth_mode === 'PREMIUM') return 'Premium';
+    if (server.auth_mode === 'SEMI_PREMIUM') return 'Semi-Premium';
     return 'Non-Premium';
 }
 
@@ -420,7 +422,8 @@ function createServerCard(server) {
 
     const category = getCategory(server);
     const badgeClass = category === 'Premium' ? 'badge-premium' :
-        category === 'Non-Premium' ? 'badge-cracked' : 'badge-offline';
+        category === 'Semi-Premium' ? 'badge-semi-premium' :
+            category === 'Non-Premium' ? 'badge-cracked' : 'badge-offline';
 
     // Get server icon with caching
     const cachedIcon = iconCache.get(server.ip);
