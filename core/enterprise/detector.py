@@ -27,11 +27,34 @@ class IntelligentDetector:
     Analyzes server behavior to determine its authentication mode.
     """
     
-    KNOWN_SEMI_PREMIUM_SIGNATURES = [
+    # Known Semi-Premium Networks (Large established hybrid servers)
+    KNOWN_SEMI_PREMIUM_NETWORKS = [
         "universocraft",
         "librecraft",
         "survivaldub",
-        "nostalgia"
+        "nostalgia",
+        "arkania",
+        "starmade",
+        "earthmc"
+    ]
+    
+    # Authentication Plugin Signatures
+    # These plugins enable hybrid auth on cracked servers
+    AUTH_PLUGIN_SIGNATURES = [
+        "authme",
+        "librelogin",
+        "jpremium",
+        "premiumconnector",
+        "fastlogin",
+        "nlogin",
+        "ultimatelogin",
+        "hybrid",
+        "semi-premium",
+        "premium & cracked",
+        "premium y pirata",
+        "premium and cracked",
+        "modo híbrido",
+        "modo hibrido"
     ]
 
     def __init__(self):
@@ -75,10 +98,13 @@ class IntelligentDetector:
             if auth_mode == AuthMode.PREMIUM:
                 return ServerType.PREMIUM, metadata
             elif auth_mode == AuthMode.NON_PREMIUM:
+                # For NON_PREMIUM protocol servers, check if they're semi-premium
+                # by analyzing additional factors
+                if self._is_likely_semi_premium(metadata):
+                    return ServerType.SEMI_PREMIUM, metadata
                 return ServerType.NON_PREMIUM, metadata
             else:
-                # If protocol check is inconclusive, default to UNKNOWN or NON_PREMIUM based on context
-                # For safety, UNKNOWN is better than False Positive Premium
+                # If protocol check is inconclusive, default to UNKNOWN
                 return ServerType.UNKNOWN, metadata
 
         except asyncio.TimeoutError:
@@ -90,14 +116,48 @@ class IntelligentDetector:
     def _check_heuristics(self, metadata: Dict[str, Any]) -> Optional[ServerType]:
         """Check for known signatures in MOTD or Hostname"""
         motd = str(metadata.get("motd", "")).lower()
+        ip = metadata.get("ip", "").lower()
         
-        # Semi-Premium Signatures
-        for sig in self.KNOWN_SEMI_PREMIUM_SIGNATURES:
-            if sig in motd:
+        # Check for known semi-premium networks by domain/IP
+        for network in self.KNOWN_SEMI_PREMIUM_NETWORKS:
+            if network in ip or network in motd:
                 return ServerType.SEMI_PREMIUM
         
-        # Common Cracked Signatures
-        if "cracked" in motd or "no premium" in motd or "offline" in motd:
+        # Check for auth plugin signatures in MOTD
+        for plugin_sig in self.AUTH_PLUGIN_SIGNATURES:
+            if plugin_sig in motd:
+                return ServerType.SEMI_PREMIUM
+        
+        # Common Cracked Signatures (definitive non-premium)
+        if "cracked" in motd or "no premium" in motd or "offline" in motd or "pirata" in motd:
+            # But check if they also mention hybrid/semi-premium
+            if any(sig in motd for sig in self.AUTH_PLUGIN_SIGNATURES):
+                return ServerType.SEMI_PREMIUM
             return ServerType.NON_PREMIUM
             
         return None
+    
+    def _is_likely_semi_premium(self, metadata: Dict[str, Any]) -> bool:
+        """
+        Secondary check for semi-premium servers that passed protocol as NON_PREMIUM.
+        Uses heuristics to identify established hybrid networks.
+        """
+        motd = str(metadata.get("motd", "")).lower()
+        players_online = metadata.get("players_online", 0)
+        
+        # Large player count (>100) + NON_PREMIUM protocol could indicate
+        # a popular hybrid network
+        if players_online > 100:
+            # Check if MOTD hints at hybrid support
+            hybrid_keywords = [
+                "premium", "original", "oficial", "pirata",
+                "java", "bedrock", "cracked", "login"
+            ]
+            keyword_count = sum(1 for kw in hybrid_keywords if kw in motd)
+            
+            # If multiple keywords present, likely advertising hybrid support
+            if keyword_count >= 2:
+                return True
+        
+        return False
+

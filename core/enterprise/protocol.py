@@ -11,6 +11,7 @@ import json
 import logging
 from enum import Enum
 from typing import Tuple, Optional
+import uuid
 
 logger = logging.getLogger("DeepProtocol")
 
@@ -21,7 +22,7 @@ class AuthMode(Enum):
     OFFLINE = "OFFLINE"
 
 class DeepProtocolAnalyzer:
-    def __init__(self, timeout: float = 5.0):
+    def __init__(self, timeout: float = 10.0):  # Increased from 5.0 to 10.0
         self.timeout = timeout
 
     async def analyze_auth_mode(self, host: str, port: int) -> AuthMode:
@@ -51,6 +52,10 @@ class DeepProtocolAnalyzer:
             # 3. Read Response Packet
             packet_id, data = await self._read_packet(reader)
             
+            # Detailed logging for debugging
+            print(f"[DEBUG] {host}: Received packet ID=0x{packet_id:02X}, data_len={len(data)}")
+            logger.debug(f"Received packet from {host}: ID=0x{packet_id:02X}, data_len={len(data)}")
+            
             # Analyze Packet ID (VarInt)
             # 0x00: Disconnect
             # 0x01: Encryption Request -> PREMIUM
@@ -58,23 +63,36 @@ class DeepProtocolAnalyzer:
             # 0x03: Set Compression -> NON_PREMIUM (Usually followed by Success)
             
             if packet_id == 0x01:
+                print(f"[DEBUG] {host}: Encryption Request -> PREMIUM")
+                logger.debug(f"{host} sent Encryption Request -> PREMIUM")
                 return AuthMode.PREMIUM
             elif packet_id == 0x02 or packet_id == 0x03:
+                print(f"[DEBUG] {host}: Login Success/Compression -> NON_PREMIUM")
+                logger.debug(f"{host} sent Login Success/Compression -> NON_PREMIUM")
                 return AuthMode.NON_PREMIUM
             elif packet_id == 0x00:
-                # Disconnect packet - check reason
+                # Disconnect packet - log the reason
                 try:
-                    json_str = data.decode('utf-8', errors='ignore')
+                    # Try to parse as JSON (modern format)
+                    disconnect_reason = data.decode('utf-8', errors='ignore')
+                    print(f"[DEBUG] {host}: Disconnect - {disconnect_reason[:100]}")
+                    logger.debug(f"{host} disconnected: {disconnect_reason[:100]}")
+                    
                     # Some cracked servers disconnect if name is invalid or whitelist
                     # But if they disconnect immediately without Encryption Request, 
                     # they are likely NOT enforcing Mojang Auth in the standard way.
                     return AuthMode.NON_PREMIUM 
-                except:
+                except Exception as e:
+                    print(f"[DEBUG] {host}: Disconnect parse error: {e}")
+                    logger.debug(f"{host} disconnect parse error: {e}")
                     return AuthMode.UNKNOWN
             
+            print(f"[DEBUG] {host}: Unknown packet ID 0x{packet_id:02X}")
+            logger.debug(f"{host} returned unknown packet ID 0x{packet_id:02X}")
             return AuthMode.UNKNOWN
 
         except Exception as e:
+            print(f"[DEBUG] {host}: Protocol error: {e}")
             # logger.debug(f"Protocol error {host}: {e}")
             return AuthMode.UNKNOWN
         finally:
@@ -85,10 +103,10 @@ class DeepProtocolAnalyzer:
                 pass
 
     async def _send_handshake(self, writer, host: str, port: int, next_state: int):
-        # Protocol 763 (1.20.1)
-        # ID 0x00
+        # Protocol 47 (1.8.9) - Most widely compatible
+        # Use 1.8.9 instead of 763 (1.20.1) for better compatibility with servers like Hypixel
         packet_id = b'\x00'
-        protocol_version = self._write_varint(763)
+        protocol_version = self._write_varint(47)  # Changed from 763 to 47
         host_bytes = host.encode('utf-8')
         host_len = self._write_varint(len(host_bytes))
         port_bytes = struct.pack('>H', port)
@@ -98,21 +116,17 @@ class DeepProtocolAnalyzer:
         await self._send_packet(writer, data)
 
     async def _send_login_start(self, writer, name: str):
-        # ID 0x00
+        # For Protocol 47 (1.8.9), Login Start only requires the name
+        # UUID is NOT required for 1.8.x
         packet_id = b'\x00'
+        
+        # Player Name (String)
         name_bytes = name.encode('utf-8')
         name_len = self._write_varint(len(name_bytes))
         
-        # UUID (Optional in some versions, but good to send empty/null if needed)
-        # For 1.20.x Login Start also includes UUID. 
-        # We'll just send Name for now, many servers accept legacy LoginStart format 
-        # or we might need to update protocol if strict.
-        # Let's try simple Name first (older protocol style often works for detection)
-        
+        # Protocol 47 (1.8.9) format: Just packet ID + name
+        # No UUID needed for 1.8.x compatibility
         data = packet_id + name_len + name_bytes
-        # Note: Modern versions require UUID after name. 
-        # Let's add a dummy UUID just in case (16 bytes)
-        # data += b'\x00' * 16 
         
         await self._send_packet(writer, data)
 
